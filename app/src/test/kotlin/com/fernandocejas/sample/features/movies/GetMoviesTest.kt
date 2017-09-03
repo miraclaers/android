@@ -22,7 +22,7 @@ class GetMoviesTest : UnitTest() {
 
     @Before fun setUp() {
         getMovies = GetMovies(moviesRepository, testScheduler)
-        given { moviesRepository.movies() } .willReturn(Observable.just(createMovieList()))
+        given { moviesRepository.movies() } .willReturn(createMovieListObservable())
     }
 
     @Test fun shouldGetDataFromRepository() {
@@ -34,5 +34,5 @@ class GetMoviesTest : UnitTest() {
         testScheduler verify applyHighPriorityScheduler
     }
 
-    private fun createMovieList() = listOf(Movie.create { String.empty() })
+    private fun createMovieListObservable() = Observable.just(listOf(Movie.create { String.empty() }))
 }
